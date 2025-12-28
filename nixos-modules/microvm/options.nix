@@ -516,7 +516,7 @@ in
        };
 
        backend = mkOption {
-         type = types.enum [ "gtk" "cocoa" ];
+         type = types.enum [ "gtk" "cocoa" "nographic" ];
          default = if pkgs.stdenv.hostPlatform.isDarwin then "cocoa" else "gtk";
          defaultText = lib.literalExpression ''if pkgs.stdenv.hostPlatform.isDarwin then "cocoa" else "gtk"'';
          description = ''

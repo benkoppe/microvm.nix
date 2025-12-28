@@ -254,6 +254,9 @@ lib.warnIf (mem == 2048) ''
            gtk = [
              "-display" "gtk,gl=on" "-device" "virtio-vga-gl"
            ];
+           nographic = [
+             "-nographic"
+           ];
          }.${graphics.backend};
        in
          displayArgs ++ [
