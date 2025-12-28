@@ -198,6 +198,9 @@ lib.warnIf (mem == 2048) ''
       "-chardev" "stdio,id=stdio,signal=off"
       "-device" "virtio-rng-${devType}"
     ] ++
+      lib.optionals requireUsb [
+        "-device" "qemu-xhci,id=usb-bus"
+      ] ++
       # Create PCIe root ports before vfio-pci devices that might require them
       builtins.concatMap ({ id, bus, chassis, slot, addr, ... }:
         [ "-device" "pcie-root-port,id=${id}${
@@ -347,10 +350,6 @@ lib.warnIf (mem == 2048) ''
         }"
       ]) interfaces
     )
-    ++
-    lib.optionals requireUsb [
-      "-device" "qemu-xhci"
-    ]
     ++
     lib.optionals (vsock.cid != null) [
       "-device"
